@@ -1,4 +1,4 @@
-# Automaton
+# NICSall
 
 We introduce a structural search algorithm implemented in the new **AUTOMATON** program. The program consists of two main procedures: in the first one, a discrete population is generated combining rules of a simplified Celular Automaton model with geometrical optimizations (to the nearest stationary point) using an *ab initio* method. In the second one, this population is evolved through genetic operations followed by geometrical optimizations (to the nearest stationary point) using an *ab initio* method. Additionally, **AUTOMATON** includes a structure-recognition routine, which is used in different stages of the search process to identify and eliminate duplicates.
 
@@ -6,27 +6,26 @@ We introduce a structural search algorithm implemented in the new **AUTOMATON** 
 
 **1)	Prerequisites**
 
-AUTOMATON is written in Perl. The program has only been tested on Mac OS X, Linux and Windows, so it can’t be guaranteed to run on other operating systems.
+NICSall is written in Perl. The program has only been tested on Linux, so it can’t be guaranteed to run on other operating systems.
 
-This topic lists library and software that must be installed prior to installing AUTOMATON.
+This topic lists library and software that must be installed prior to installing NICSall.
 
 -Install CPAN modules (http://www.cpan.org/modules/INSTALL.html or https://egoleo.wordpress.com/2008/05/19/how-to-install-perl-modules-through-cpan-on-ubuntu-hardy-server/)
 
-    user$ sudo cpan Parallel::ForkManager
+    user$ sudo cpan Array::Split
       
-    user$ sudo cpan Math::Matrix
+    user$ sudo cpan Parallel::ForkManager
 
 -Install External softwares
 
-  •	Mopac (http://openmopac.net/Download_MOPAC_Executable_Step2.html)
+  •	ADF (https://www.scm.com/)
 
   •	Gaussian (http://gaussian.com/)
 
-  •	Lammps (https://lammps.sandia.gov/download.html#ubuntu)
+  •	Orca (https://orcaforum.cec.mpg.de/)
   
-  NOTE: mpiexec for Lammps (https://www.mpich.org/static/docs/v3.1/www1/mpiexec.html)
 
-**2)	Running AUTOMATON**
+**2)	Running NICSall**
 
 The program does not have a graphical user interface, it has a command line interface that is very simple to use with some instruction. AUTOMATON program interfaces with a computational program in the background, thus the program to be used has to be available. The program allows energy calculations to be performed using a wide variety of external quantum chemistry programs including Gaussian, Mopac and Lammps (ReaxFF).
 
