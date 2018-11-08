@@ -1,6 +1,6 @@
 # NICSall
 
-We introduce a structural search algorithm implemented in the new **AUTOMATON** program. The program consists of two main procedures: in the first one, a discrete population is generated combining rules of a simplified Celular Automaton model with geometrical optimizations (to the nearest stationary point) using an *ab initio* method. In the second one, this population is evolved through genetic operations followed by geometrical optimizations (to the nearest stationary point) using an *ab initio* method. Additionally, **AUTOMATON** includes a structure-recognition routine, which is used in different stages of the search process to identify and eliminate duplicates.
+We introduce a structural search algorithm implemented in the new **NICSall** program.
 
 # Getting Started
 
@@ -27,9 +27,9 @@ This topic lists library and software that must be installed prior to installing
 
 **2)	Running NICSall**
 
-The program does not have a graphical user interface, it has a command line interface that is very simple to use with some instruction. AUTOMATON program interfaces with a computational program in the background, thus the program to be used has to be available. The program allows energy calculations to be performed using a wide variety of external quantum chemistry programs including Gaussian, Mopac and Lammps (ReaxFF).
+The program does not have a graphical user interface, it has a command line interface that is very simple to use with some instruction. NICSall program interfaces with a computational program in the background, thus the program to be used has to be available. The program allows NMR calculations to be performed using a wide variety of external quantum chemistry programs including Gaussian, ADF and Orca.
 
-To download the AUTOMATON you need Git installed on your computer. If Git is installed use the following command to download the AUTOMATON: 
+To download the NICSall you need Git installed on your computer. If Git is installed use the following command to download the NICSall: 
 
     user$ git clone https://github.com/HumanOsv/Automaton.git
 
