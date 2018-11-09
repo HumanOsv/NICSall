@@ -27,7 +27,7 @@ This topic lists library and software that must be installed prior to installing
 
 **2)	Running NICSall**
 
-The program does not have a graphical user interface, it has a command line interface that is very simple to use with some instruction. NICSall program interfaces with a computational program in the background, thus the program to be used has to be available. The program allows NMR parameters using standard electronic structure theory methods to be performed using a wide variety of external quantum chemistry programs including Gaussian, ADF(work in progress) and Orca(work in progress).
+The program does not have a graphical user interface, it has a command line interface that is very simple to use with some instruction. NICSall program interfaces with a computational program in the background, thus the program to be used has to be available. The program allows NMR parameters using standard electronic structure theory methods to be performed using a wide variety of external quantum chemistry programs including Gaussian, ADF (work in progress) and Orca (work in progress).
 
 To download the NICSall you need Git installed on your computer. If Git is installed use the following command to download the NICSall: 
 
@@ -53,37 +53,44 @@ Now use the following commands to execute this program:
 
 After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName.vti and FileName.vtk.
 
-	ValuesICSS.backup       : Final coordinates XYZ file format of each species ordered less energy at higher energy.
+	ValuesICSS.backup       : Final c
 	./Resources
-	     |_ BOX.vmd         : 
-	     |_ FileName.cube   :
-	     |_ FileName.vti    :
-	     |_ FileName.vtk    :
+	     |_ BOX.vmd         :  
+	     |_ FileName.cube   : 
+	     |_ FileName.vti    : 
+	     |_ FileName.vtk    : 
 		
 **3)	Input File**
 
-The main input file named as input.dat, contains all necessary parameters for the structure
-prediction.
+The main input file named as Config.in, contains all necessary parameters for calculate the Nucleus-Independent Chemical Shifts (NICS).
 
 Number of structures (3N or 5N, N = Atoms number)
 
-    numb_conf = 60
+    coords = FileName.xyz
 
 Genetic operations Most genetic algorithms implement several genetic operators; mating
 and mutation operator.
 
-    mutations = YES
-    crossing_over = YES
+    quality = 0.2
+
+Genetic operations Most genetic algorithms implement several genetic operators; mating
+and mutation operator.
+    
+    option = 1
+
+Genetic operations Most genetic algorithms implement several genetic operators; mating
+and mutation operator.
+
+    orbitals = 20,21,22,23,-19,-18,-24,-25
+
+Genetic operations Most genetic algorithms implement several genetic operators; mating
+and mutation operator.
+
+    type_graph = 5
 
 The size of the box (in Angstroms) length, width, and height. AUTOMATON build an automatic box.
 
     box_size = 
-
-Different atomic (or chemical) species in the system.( example: H 02 Pb 03 Ca 04 )
-
-    chemical_formula = H 06 C 06
-    
-*NOTE: Respect the spaces of separation.*
 
 Software mopac and gaussian (mopac/gaussian/lammps)
 
@@ -103,15 +110,14 @@ keywords for gaussian, mopac, or lammps
 
 *Gaussian*
 
-    header = PBE1PBE/SDDAll scf=(maxcycle=512) opt=(cartesian,maxcycle=512)
+    header = B3lyp/6-31g*
 
-*Mopac*
+A model potential be substituted for the core electrons (https://bse.pnl.gov/bse/portal).
 
-    header = AUX LARGE PM6
-
-*Lammps (ReaxFF file)*
-
-    header = reaxxFF.Co
+    pseudopotentials
+    ...
+    ...
+    pseudopotentials
 
 General Note: Respect the spaces of separation between the symbol "=".
 
