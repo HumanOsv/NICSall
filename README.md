@@ -70,10 +70,14 @@ Coordenadas cartesianas en formato xyz
 
     coords = FileName.xyz
 
+*NOTE: Respect the spaces of separation.*
+
 Calidad grid y componente del calculo Total
 Ejemplo: quality = 0.2 
 
     quality = 0.2
+
+*NOTE: Respect the spaces of separation.*
 
 Opcion para calcular Shielding (0) o separacion sigma pi (1)
     
@@ -83,9 +87,7 @@ Orbitales para realizar la separacion sigma pi ( N° orbitals > 3)
 
     orbitals = 20,21,22,23,-19,-18,-24,-25
 
-Componente a calcular (1=Isotropy, 2=Anisotropy, 3=Component XX, 4=Component YY, 5=Component ZZ, 6=FiPC, 7=Scan, 8=FiPC+Scan & 9=SPST)
-    
-    type_graph = 5
+*NOTE: Respect the spaces of separation.*
 
 The size of the box (in Angstroms) length, width, and height. NICSall build an automatic box.
 
@@ -117,6 +119,10 @@ A model potential be substituted for the core electrons (https://bse.pnl.gov/bse
     ...
     ...
     pseudopotentials
+
+Componente a calcular (1=Isotropy, 2=Anisotropy, 3=Component XX, 4=Component YY, 5=Component ZZ, 6=FiPC, 7=Scan, 8=FiPC+Scan & 9=SPST)
+    
+    type_graph = 5
 
 General Note: Respect the spaces of separation between the symbol "=".
 
