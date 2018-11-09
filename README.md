@@ -18,11 +18,11 @@ This topic lists library and software that must be installed prior to installing
 
 -Install External softwares
 
-  •	ADF (https://www.scm.com/) (work in progress)
+  •	ADF (https://www.scm.com/)
 
   •	Gaussian (http://gaussian.com/)
 
-  •	Orca (https://orcaforum.cec.mpg.de/) (work in progress)
+  •	Orca (https://orcaforum.cec.mpg.de/)
   
 
 **2)	Running NICSall**
@@ -37,7 +37,7 @@ To download the NICSall you need Git installed on your computer. If Git is insta
 
 The following necessary files should appear in the working directory:
 
-    • File_coords.xyz        : XYZ cartesian coordinates format .xyz
+    • FileName.xyz        : XYZ cartesian coordinates format .xyz
     
     • Config.in              : The NICSall input file
     
@@ -51,14 +51,15 @@ Now use the following commands to execute this program:
 
     user$ setsid perl NICSall.pl Config.in >out.log
 
-After a successful run of the program, several output files named as: 01Final_coords.xyz, 02Duplicate_coords.xyz, 03Report_Output.txt and 04Files_not_converge.txt (only Gaussian) will be generated in your working directory.
+After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName.vti and FileName.vtk.
 
-	01Final_coords.xyz       : Final coordinates XYZ file format of each species ordered less energy at higher energy.
-	02Duplicate_coords.xyz   : Candidates that are a duplicate of a candidate in the population, in XYZ file format.
-	03Report_Output.txt      : Print summary information after each set of this many iterations.
-	04Files_not_converge.txt : Summary information of files that have problems SCF convergence (only Gaussian program).
-
-
+	ValuesICSS.backup       : Final coordinates XYZ file format of each species ordered less energy at higher energy.
+	./Resources
+	     |_ BOX.vmd         : 
+	     |_ FileName.cube   :
+	     |_ FileName.vti    :
+	     |_ FileName.vtk    :
+		
 **3)	Input File**
 
 The main input file named as input.dat, contains all necessary parameters for the structure
