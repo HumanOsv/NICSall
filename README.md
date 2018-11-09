@@ -18,34 +18,38 @@ This topic lists library and software that must be installed prior to installing
 
 -Install External softwares
 
-  •	ADF (https://www.scm.com/)
+  •	ADF (https://www.scm.com/) (work in progress)
 
   •	Gaussian (http://gaussian.com/)
 
-  •	Orca (https://orcaforum.cec.mpg.de/)
+  •	Orca (https://orcaforum.cec.mpg.de/) (work in progress)
   
 
 **2)	Running NICSall**
 
-The program does not have a graphical user interface, it has a command line interface that is very simple to use with some instruction. NICSall program interfaces with a computational program in the background, thus the program to be used has to be available. The program allows NMR calculations to be performed using a wide variety of external quantum chemistry programs including Gaussian, ADF and Orca.
+The program does not have a graphical user interface, it has a command line interface that is very simple to use with some instruction. NICSall program interfaces with a computational program in the background, thus the program to be used has to be available. The program allows NMR parameters using standard electronic structure theory methods to be performed using a wide variety of external quantum chemistry programs including Gaussian, ADF(work in progress) and Orca(work in progress).
 
 To download the NICSall you need Git installed on your computer. If Git is installed use the following command to download the NICSall: 
 
-    user$ git clone https://github.com/HumanOsv/Automaton.git
+    user$ git clone https://github.com/HumanOsv/NICSall.git
 
-    user$ cd ./Automaton
+    user$ cd ./NICSall
 
 The following necessary files should appear in the working directory:
 
-    • Config.in              : The AUTOMATON input file
-
-    • AUTOMATON.pl           : The executable file for structure prediction
-
-    • ReaxFF file (optional) : Reactive MD-force field file of Lammps
+    • File_coords.xyz        : XYZ cartesian coordinates format .xyz
+    
+    • Config.in              : The NICSall input file
+    
+    • NICSall.pl             : The executables files for NMR parameters
+          |_ GraphMaker.pl   
+          |_ CubeToVTK.pl    
+          |_ ReadResults.pl  
+    
 
 Now use the following commands to execute this program:
 
-    user$ setsid perl AUTOMATON.pl Config.in >out.log
+    user$ setsid perl NICSall.pl Config.in >out.log
 
 After a successful run of the program, several output files named as: 01Final_coords.xyz, 02Duplicate_coords.xyz, 03Report_Output.txt and 04Files_not_converge.txt (only Gaussian) will be generated in your working directory.
 
