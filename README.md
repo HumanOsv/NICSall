@@ -37,11 +37,11 @@ To download the NICSall you need Git installed on your computer. If Git is insta
 
 The following necessary files should appear in the working directory:
 
-    • FileName.xyz        : XYZ cartesian coordinates format .xyz
+    • FileName.xyz         : XYZ cartesian coordinates format .xyz
     
-    • Config.in              : The NICSall input file
+    • Config.in            : The NICSall input file
     
-    • NICSall.pl             : The executables files for NMR parameters
+    • NICSall.pl           : The executables files for NMR parameters
           |_ GraphMaker.pl   
           |_ CubeToVTK.pl    
           |_ ReadResults.pl  
@@ -51,14 +51,16 @@ Now use the following commands to execute this program:
 
     user$ setsid perl NICSall.pl Config.in >out.log
 
-After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName.vti and FileName.vtk.
+After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName.vti, FileName.vtk, Filename_SCANS.txt and Filename_FiPC.txt.
 
-	ValuesICSS.backup       : Final c
+	ValuesICSS.backup          : Final c
 	./Resources
-	     |_ BOX.vmd         :  
-	     |_ FileName.cube   : 
-	     |_ FileName.vti    : 
-	     |_ FileName.vtk    : 
+	     |_ BOX.vmd            :  
+	     |_ FileName.cube      : 
+	     |_ FileName.vti       : 
+	     |_ FileName.vtk       : 
+	     |_ Filename_SCANS.txt :
+	     |_ Filename_FiPC.txt  :
 		
 **3)	Input File**
 
@@ -85,11 +87,11 @@ Componente a calcular (1=Isotropy, 2=Anisotropy, 3=Component XX, 4=Component YY,
     
     type_graph = 5
 
-The size of the box (in Angstroms) length, width, and height. AUTOMATON build an automatic box.
+The size of the box (in Angstroms) length, width, and height. NICSall build an automatic box.
 
     box_size = 
 
-Software mopac and gaussian (mopac/gaussian/lammps)
+Software mopac and gaussian (gaussian)
 
     software = gaussian
 
@@ -103,7 +105,7 @@ The charge and multiplicity of the candidate.
 
     charge_multi = 0,1
 
-keywords for gaussian, mopac, or lammps
+keywords for gaussian
 
 *Gaussian*
 
