@@ -123,7 +123,7 @@ Componente a calcular (1=Isotropy, 2=Anisotropy, 3=Component XX, 4=Component YY,
     
     type_graph = 5
 
-*General Note: Respect the spaces of separation between the symbol "=".*
+**General Note: Respect the spaces of separation between the symbol "=".**
 
     Correct : software = gaussian
     Wrong   : software=gaussian
