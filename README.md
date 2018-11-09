@@ -42,6 +42,7 @@ The following necessary files should appear in the working directory:
     • Config.in            : The NICSall input file
     
     • NICSall.pl           : The executables files for NMR parameters
+       ./src/
           |_ GraphMaker.pl   
           |_ CubeToVTK.pl    
           |_ ReadResults.pl  
@@ -64,36 +65,35 @@ After a successful run of the program, several output files named as: ValuesICSS
 		
 **3)	Input File**
 
-The main input file named as Config.in, contains all necessary parameters for calculate the Nucleus-Independent Chemical Shifts (NICS).
+The main input file named as Config.in, contains all necessary parameters for calculate the NICS parameters.
 
-Coordenadas cartesianas en formato xyz 
+The XYZ file cartesian coordinates format is a chemical file format (https://openbabel.org/docs/dev/FileFormats/XYZ_cartesian_coordinates_format.html).
 
     coords = FileName.xyz
 
-*NOTE: Respect the spaces of separation.*
+*NOTE: For a better analysis it's recommended that all the molecular rings must be placed in the XY plane, in such a way that the external magnetic field is on the Z axis.*
 
-Calidad grid y componente del calculo Total
-Ejemplo: quality = 0.2 
+Quality grid of NICS parameters.
 
     quality = 0.2
 
-*NOTE: Respect the spaces of separation.*
+*NOTE: For efficiency consideration, the default quality of grid data is 0.4*
 
-Opcion para calcular Shielding (0) o separacion sigma pi (1)
+Choose NMR chemical shieldings (0) or Sigma-Pi separation (1)
     
-    option = 1
+    option = 0
 
-Orbitales para realizar la separacion sigma pi ( N° orbitals > 3)
+Orbitals to perform Sigma-Pi separation 
 
     orbitals = 20,21,22,23,-19,-18,-24,-25
 
-*NOTE: Respect the spaces of separation.*
+*NOTE: The Sigma and Pi orbitals correspond to Negative and Positive values.*
 
 The size of the box (in Angstroms) length, width, and height. NICSall build an automatic box.
 
     box_size = 
 
-Software mopac and gaussian (gaussian)
+Software gaussian (gaussian)
 
     software = gaussian
 
@@ -119,9 +119,11 @@ A model potential be substituted for the core electrons (https://bse.pnl.gov/bse
     ... Inputa data ...
     pseudopotentials
 
-Componente a calcular (1=Isotropy, 2=Anisotropy, 3=Component XX, 4=Component YY, 5=Component ZZ, 6=FiPC, 7=Scan, 8=FiPC+Scan & 9=SPST)
+Nuclear independent chemical shielding (NICS) functions.
     
     type_graph = 5
+
+*NOTE: (1=Isotropy, 2=Anisotropy, 3=Component XX, 4=Component YY, 5=Component ZZ, 6=FiPC, 7=Scan, 8=FiPC+Scan & 9=SPST*
 
 **General Note: Respect the spaces of separation between the symbol "=".**
 
