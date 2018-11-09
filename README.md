@@ -64,28 +64,25 @@ After a successful run of the program, several output files named as: ValuesICSS
 
 The main input file named as Config.in, contains all necessary parameters for calculate the Nucleus-Independent Chemical Shifts (NICS).
 
-Number of structures (3N or 5N, N = Atoms number)
+Coordenadas cartesianas en formato xyz 
 
     coords = FileName.xyz
 
-Genetic operations Most genetic algorithms implement several genetic operators; mating
-and mutation operator.
+Calidad grid y componente del calculo Total
+Ejemplo: quality = 0.2 
 
     quality = 0.2
 
-Genetic operations Most genetic algorithms implement several genetic operators; mating
-and mutation operator.
+Opcion para calcular Shielding (0) o separacion sigma pi (1)
     
     option = 1
 
-Genetic operations Most genetic algorithms implement several genetic operators; mating
-and mutation operator.
+Orbitales para realizar la separacion sigma pi ( N° orbitals > 3)
 
     orbitals = 20,21,22,23,-19,-18,-24,-25
 
-Genetic operations Most genetic algorithms implement several genetic operators; mating
-and mutation operator.
-
+Componente a calcular (1=Isotropy, 2=Anisotropy, 3=Component XX, 4=Component YY, 5=Component ZZ, 6=FiPC, 7=Scan, 8=FiPC+Scan & 9=SPST)
+    
     type_graph = 5
 
 The size of the box (in Angstroms) length, width, and height. AUTOMATON build an automatic box.
