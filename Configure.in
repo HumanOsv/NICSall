@@ -1,0 +1,46 @@
+## The XYZ file cartesian coordinates format is a chemical file format.
+
+coords = benzene.xyz
+
+## Quality grid of NICS parameters.
+
+quality = 0.2
+
+## The size of the box (in Angstroms) length, width, and height.
+
+box_size = 8.0, 8.0, 8.0
+
+## Choose NMR chemical shieldings (0) or Sigma-Pi separation (1).
+
+option = 1
+
+## Orbitals to perform Sigma-Pi separation.
+
+orbitals = 20,21,22,23,-19,-18,-24,-25
+
+## Nuclear independent chemical shielding (NICS) functions.
+
+type_graph = 0
+
+## Software gaussian (gaussian).
+
+software = gaussian
+
+## The number of processors and memory (GB).
+
+core_mem = 4,8
+
+## The charge and multiplicity of the candidate.
+
+charge_multi = 0,1
+
+## keywords for gaussian
+
+header = B3lyp/6-31g*
+
+## A model potential be substituted for the core electrons
+
+pseudopotentials
+
+pseudopotentials
+
