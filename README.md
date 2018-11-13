@@ -81,21 +81,21 @@ NICSall needs an input file, Config.in, that contains all the necessary paramete
 explained below.
 
 
-The XYZ file cartesian coordinates format is a chemical file format (https://openbabel.org/docs/dev/FileFormats/XYZ_cartesian_coordinates_format.html).
+*a)* The XYZ file cartesian coordinates format is a chemical file format (https://openbabel.org/docs/dev/FileFormats/XYZ_cartesian_coordinates_format.html).
 
     coords = FileName.xyz
 
 *NOTE: For a better analysis it's recommended that all the molecular rings must be placed in the XY plane, in such a way that the external magnetic field is on the Z axis.*
 
 
-Quality grid of NICS parameters.
+*b)* Quality grid of NICS parameters.
 
     quality = 0.2
 
 *NOTE: For efficiency consideration, the default quality of grid data is 0.4*
 
 
-The size of the box (in Angstroms) length, width, and height. NICSall build an automatic box.
+*c)* The size of the box (in Angstroms) length, width, and height. NICSall build an automatic box.
 
     box_size = 
 
@@ -103,19 +103,19 @@ The size of the box (in Angstroms) length, width, and height. NICSall build an a
 *NOTE: The valor "0" in any parameter (length, width or height) will make a plane. Two "0" in the parameters will build a line*
 
 
-Choose NMR chemical shieldings (0) or Sigma-Pi separation (1)
+*d)* Choose NMR chemical shieldings (0) or Sigma-Pi separation (1)
     
     option = 0
 
 
-Orbitals to perform Sigma-Pi separation 
+*e)* Orbitals to perform Sigma-Pi separation 
 
     orbitals = 20,21,22,23,-19,-18,-24,-25
 
 *NOTE: The Sigma and Pi orbitals correspond to Negative and Positive values.*
 
 
-Nuclear independent chemical shielding (NICS) functions.
+*f)* Nuclear independent chemical shielding (NICS) functions.
     
     type_graph = 1,2,5,8
 
@@ -140,31 +140,31 @@ Nuclear independent chemical shielding (NICS) functions.
     9 = Symmetry Properties of the Shielding Tensor (SPST)
 
 
-Software gaussian (gaussian)
+*g)* Software gaussian (gaussian)
 
     software = gaussian
 
 *Configuring the program for chemistry packages*
 
 
-The number of processors to use in the run (the value may be used to create the input file) # and memory to be used in GB.
+*h)* The number of processors to use in the run (the value may be used to create the input file) # and memory to be used in GB.
 
     core_mem = 8,8
 
 
-The charge and multiplicity of the candidate.
+*i)* The charge and multiplicity of the candidate.
 
     charge_multi = 0,1
 
 
-keywords for gaussian
+*j)* keywords for gaussian
 
 *Gaussian*
 
     header = B3lyp/6-31g*
 
 
-A model potential be substituted for the core electrons (https://bse.pnl.gov/bse/portal).
+*k)* A model potential be substituted for the core electrons (https://bse.pnl.gov/bse/portal).
 
     pseudopotentials
     ... Inputa data ...
