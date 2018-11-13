@@ -23,6 +23,9 @@ This topic lists library and software that must be installed prior to installing
   •	Gaussian (http://gaussian.com/)
 
   •	Orca (https://orcaforum.cec.mpg.de/)
+
+  •	NBO for Gaussian to perform Sigma-Pi separation (http://nbo6.chem.wisc.edu/webnbo_css.htm) 
+  
   
 
 **2)	Running NICSall**
