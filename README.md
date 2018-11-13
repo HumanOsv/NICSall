@@ -139,7 +139,7 @@ Nuclear independent chemical shielding (NICS) functions.
    
     7 = Scan
    
-    8 = FiPC + Scan
+    8 = FiPC & Scan
    
     9 = Symmetry Properties of the Shielding Tensor (SPST)
 
