@@ -147,7 +147,7 @@ explained below.
 *Configuring the program for chemistry packages*
 
 
-*h)* The number of processors to use in the run (the value may be used to create the input file) # and memory to be used in GB.
+*h)* The number of processors to use in the run (the value may be used to create the input file) and memory to be used in GB.
 
     core_mem = 8,8
 
