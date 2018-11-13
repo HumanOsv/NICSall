@@ -125,8 +125,6 @@ Nuclear independent chemical shielding (NICS) functions.
 
 *NOTE: NICS and related properties.*
  
-    0 = all
-   
     1 = Isotropy
    
     2 = Anisotropy
