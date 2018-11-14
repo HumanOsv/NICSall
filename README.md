@@ -100,7 +100,7 @@ explained below.
     box_size = 
 
 
-*NOTE: The valor "0" in any parameter (length, width or height) will make a plane. Two "0" in the parameters will build a line*
+*NOTE: The value "0" in any parameter (length, width or height) will make a plane. Two "0" in the parameters will build a line*
 
 
 *d)* Choose NMR chemical shieldings (0) or Sigma-Pi separation (1)
