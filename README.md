@@ -1,6 +1,6 @@
 # NICSall
 
-We introduce a structural search algorithm implemented in the new **NICSall** program.
+We introduce a Nuclear independent chemical shielding (NICS) algorithm implemented in the new **NICSall** program.
 
 # Getting Started
 
