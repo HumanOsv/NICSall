@@ -20,7 +20,7 @@ orbitals = 20,21,22,23,-19,-18,-24,-25
 
 ## Nuclear independent chemical shielding (NICS) functions.
 
-type_graph = 0
+type_graph = 1,2,5,8
 
 ## Software gaussian (gaussian).
 
