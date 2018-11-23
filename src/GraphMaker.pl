@@ -423,7 +423,7 @@ my $configFile= $ARGV[0];
 (my $outputName = $basename) =~ s/\.[^.]+$//;
 $outputName=trim($outputName);
 #
-print "COSAS:  @type\n";
+# print "COSAS:  @type\n";
 if($option==0){
 	$datFile="ValuesICSS.backup";
 	Starts($datFile,"",$outputName);
