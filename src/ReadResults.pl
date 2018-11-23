@@ -290,7 +290,7 @@ sub ReadMeshCOMS {
 	ReadOutsSetInfo($first, $SP);
 	#all .com output data
 	foreach my $com (@coms) {
-		print "escribiendo $com\n";
+		# print "escribiendo $com\n";
 		NBOAnalysisData($com);
 		SetSpecialLinePosition($com);
 		ReadOutsSetInfo($com, $SP);		
