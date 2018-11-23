@@ -376,43 +376,44 @@ sub Starts {
 	GetParamOFDat($datFile);
 
 	foreach my $type (@type){
+		my $OutPutFilesNMR;
 		if($type==1){
-			$outputName=$outputName.$surname."_ISO";
+			$OutPutFilesNMR=$outputName.$surname."_ISO";
 		}elsif($type==2){
-			$outputName=$outputName.$surname."_ANI";
+			$OutPutFilesNMR=$outputName.$surname."_ANI";
 		}elsif($type==3){
-			$outputName=$outputName.$surname."_XX";
+			$OutPutFilesNMR=$outputName.$surname."_XX";
 		}elsif($type==4){
-			$outputName=$outputName.$surname."_YY";
+			$OutPutFilesNMR=$outputName.$surname."_YY";
 		}elsif($type==5){
-			$outputName=$outputName.$surname."_ZZ";
+			$OutPutFilesNMR=$outputName.$surname."_ZZ";
 		}elsif($type==6){
-			$outputName=$outputName.$surname."_FiPC";
+			$OutPutFilesNMR=$outputName.$surname."_FiPC";
 		}elsif($type==7){
-			$outputName=$outputName.$surname."_Scans";
+			$OutPutFilesNMR=$outputName.$surname."_Scans";
 		}elsif($type==8){
-			$outputName=$outputName.$surname."_FS";
+			$OutPutFilesNMR=$outputName.$surname."_FS";
 		}elsif($type==9){
-			$outputName=$outputName.$surname."_SPST";
+			$OutPutFilesNMR=$outputName.$surname."_SPST";
 		}
 		#
 		if($type==6){
 			print "MESSAGE Creating FiPC file\n";
-			CalculatePropiertiesAndWrite(1,$outputName,$datFile);
+			CalculatePropiertiesAndWrite(1,$OutPutFilesNMR,$datFile);
 		}elsif($type==7){
 			#SCAN
 			print "MESSAGE Creating Scans file\n";
-			CalculatePropiertiesAndWrite(2,$outputName,$datFile);
+			CalculatePropiertiesAndWrite(2,$OutPutFilesNMR,$datFile);
 		}elsif($type==8){
 			print "MESSAGE Creating FiPC and Scans file\n";
-			CalculatePropiertiesAndWrite(3,$outputName,$datFile);
+			CalculatePropiertiesAndWrite(3,$OutPutFilesNMR,$datFile);
 		}elsif($type==9){
 			print "MESSAGE Creating Symmetry Properties of the Shielding Tensor file\n";
-			OtherTensors($outputName,$datFile);
+			OtherTensors($OutPutFilesNMR,$datFile);
 			#CalculatePropiertiesAndWrite($outputName,$datFile);
 		}else{
 			print "MESSAGE Creating Isotropic, Anisotropic & Component (XX,YY,ZZ) file\n";
-			CreateCubeFile(($type+3), $outputName,$datFile);
+			CreateCubeFile(($type+3), $OutPutFilesNMR,$datFile);
 		}
 	}
 }
