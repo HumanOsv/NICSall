@@ -70,7 +70,8 @@ After a successful run of the program, several output files named as: ValuesICSS
 	./Resources
 	     |_ BOX.vmd            :  
 	     |_ FileName.cube      : 
-	     |_ FileName.vti       : 
+	     |_ FileName_Pos.vti   :
+	     |_ Filename_Neg.vti   :
 	     |_ FileName.vtk       : 
 	     |_ Filename_SCANS.txt :
 	     |_ Filename_FiPC.txt  :
