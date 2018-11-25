@@ -70,10 +70,10 @@ After a successful run of the program, several output files named as: ValuesICSS
 	./Resources
 	     |_ BOX.vmd            :  
 	     |_ FileName.cube      : 
-	     |_ FileName_Pos.vti   :
-	     |_ Filename_Neg.vti   :
-	     |_ FileName.vtk       : 
-	     |_ Filename_SCANS.txt :
+	     |_ FileName_Pos.vti   : The Induced Magnetic Field (VTI File Format, positive vectors)
+	     |_ Filename_Neg.vti   : The Induced Magnetic Field (VTI File Format, negative vectors)
+	     |_ FileName.vtk       : The Induced Magnetic Field (VTK File Format, Isolines) 
+	     |_ Filename_SCANS.txt : The NICS values computed at and above the ring center of molecules.
 	     |_ Filename_FiPC.txt  :
 		
 **3)	Input File**
