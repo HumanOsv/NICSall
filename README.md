@@ -89,7 +89,7 @@ After a successful run of the program, several output files named as: ValuesICSS
    
     Column   Description
        1         Type of Atom 
-     2,3,4       Cartesian Coords
+     2,3,4       Cartesian Coords XYZ
        5         Isotropy
        6         Anisotropy
        7         Component XX
