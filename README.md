@@ -116,8 +116,15 @@ After a successful run of the program, several output files named as: ValuesICSS
    Filename_SPST.txt
    
     Column   Description
+       1         Type of Atom       
+       2         Z axis coord
+       3         Component XX
+       4         Component YY
+       5         Component ZZ
+       6         Sigma(av)
+       7         Delta
+       8         Nu
 				
-		
 **3)	Input File**
 
 NICSall needs an input file, Config.in, that contains all the necessary parameters for a correct calculation. Each variable is 
