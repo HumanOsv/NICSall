@@ -63,19 +63,22 @@ or:
 
     user$ setsid perl NICSall.pl Config.in > out.log
 
-After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName.vti, FileName.vtk, Filename_SCANS.txt and Filename_FiPC.txt.
+After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName(Pos|Neg).vti, FileName.vtk, Filename_SCANS.txt and Filename_FiPC.txt.
 
 	out.log			   : log file
-	ValuesICSS.backup          : Final c
+	ValuesICSS.backup          : File contains the main 
 	./Resources
 	     |_ BOX.vmd            : The size of the box (in Angstroms) length, width, and height. (vmd -e BOX.vmd) 
 	     |_ FileName.cube      : The cube file describes volumetric data as well as atom positions. 
 	     |_ FileName_Pos.vti   : The Induced Magnetic Field (VTI File Format, Positive Vectors)
 	     |_ Filename_Neg.vti   : The Induced Magnetic Field (VTI File Format, Negative Vectors)
 	     |_ FileName.vtk       : The Induced Magnetic Field (VTK File Format, Isolines) 
-	     |_ Filename_SCANS.txt : The NICS values computed at and above the ring center of molecules.
-	     |_ Filename_FiPC.txt  :
-		
+	     |_ Filename_SCANS.txt : The NICS values computed along the axis perpendicular to the molecular plane
+	     |_ Filename_FiPC.txt  : FiPC-NICS is computing NICS profiles along the axis perpendicular to the molecular plane
+	     |_ Filename_SPST.txt  : Symmetry Properties of the Shielding Tensor (SPST) profiles along the axis perpendicular to the 
+	                             molecular plane
+				    
+				    
 **3)	Input File**
 
 NICSall needs an input file, Config.in, that contains all the necessary parameters for a correct calculation. Each variable is 
