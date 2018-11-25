@@ -63,7 +63,7 @@ or:
 
     user$ setsid perl NICSall.pl Config.in > out.log
 
-After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName(Pos|Neg).vti, FileName.vtk, Filename_SCANS.txt and Filename_FiPC.txt.
+After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName(Pos|Neg).vti, FileName.vtk, Filename_SCANS.txt, Filename_FiPC.txt and Filename_SPST.txt.
 
 	out.log			   : Output file from NICSall software
 	ValuesICSS.backup          : File contains the main 
