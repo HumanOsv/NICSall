@@ -37,7 +37,11 @@ To download the NICSall you need Git installed on your computer. If Git is insta
     user$ git clone https://github.com/HumanOsv/NICSall.git
 
     user$ cd ./NICSall
-
+    
+    user$ chmod 777 NICSall.pl
+    
+    user$ chmod 777 ./src/*
+    
 The following necessary files should appear in the working directory:
 
     • FileName.xyz         : XYZ cartesian coordinates format .xyz
@@ -66,7 +70,8 @@ or:
 After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName(Pos|Neg).vti, FileName.vtk, Filename_SCANS.txt, Filename_FiPC.txt and Filename_SPST.txt.
 
 	out.log			   : Output file from NICSall software
-	ValuesICSS.backup          : File contains the main 
+	ValuesICSS.backup          : File contains the main NMR parameters. If this file is present in the directory or Gaussian outputs, 
+	                             it is not necessary to send the quantum calculation again
 	./Resources
 	     |_ BOX.vmd            : The size of the box (in Angstroms) length, width, and height. (vmd -e BOX.vmd) 
 	     |_ FileName.cube      : The cube file describes volumetric data as well as atom positions. 
