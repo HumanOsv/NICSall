@@ -65,7 +65,7 @@ or:
 
 After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName(Pos|Neg).vti, FileName.vtk, Filename_SCANS.txt and Filename_FiPC.txt.
 
-	out.log			   : log file
+	out.log			   : Output file from NICSall software
 	ValuesICSS.backup          : File contains the main 
 	./Resources
 	     |_ BOX.vmd            : The size of the box (in Angstroms) length, width, and height. (vmd -e BOX.vmd) 
@@ -73,12 +73,51 @@ After a successful run of the program, several output files named as: ValuesICSS
 	     |_ FileName_Pos.vti   : The Induced Magnetic Field (VTI File Format, Positive Vectors)
 	     |_ Filename_Neg.vti   : The Induced Magnetic Field (VTI File Format, Negative Vectors)
 	     |_ FileName.vtk       : The Induced Magnetic Field (VTK File Format, Isolines) 
-	     |_ Filename_SCANS.txt : The NICS values computed along the axis perpendicular to the molecular plane
+	     |_ Filename_SCANS.txt : Scan-NICS values computed along the axis perpendicular to the molecular plane
 	     |_ Filename_FiPC.txt  : FiPC-NICS is computing NICS profiles along the axis perpendicular to the molecular plane
 	     |_ Filename_SPST.txt  : Symmetry Properties of the Shielding Tensor (SPST) profiles along the axis perpendicular to the 
 	                             molecular plane
-				    
-				    
+		
+*NOTE: Files Format*
+
+   ValuesICSS.backup
+   
+    Column   Description
+       1         Type of Atom 
+     2,3,4       Cartesian Coords
+       5         Isotropy
+       6         Anisotropy
+       7         Component XX
+       8         Component YY
+       9         Component ZZ
+      10         Component XZ
+      11         Component YZ
+           
+   Filename_SCANS.txt
+   
+    Column   Description
+       1         Type of Atom       
+       2         Z axis coord
+       3         Component ZZ
+       4         Isotropy
+       5         Anisotropy
+       
+   Filename_FiPC.txt
+   
+    Column   Description
+       1         Type of Atom       
+       2         Z axis coord
+       3         Component XX
+       4         Component YY
+       5         Component ZZ
+       6         In-Plane
+       7         Out-Plane
+       
+   Filename_SPST.txt
+   
+    Column   Description
+				
+		
 **3)	Input File**
 
 NICSall needs an input file, Config.in, that contains all the necessary parameters for a correct calculation. Each variable is 
@@ -135,11 +174,11 @@ explained below.
    
     5 = Component ZZ
    
-    6 = FiPC
+    6 = FiPC-NICS
    
-    7 = Scan
+    7 = Scan-NICS
    
-    8 = FiPC & Scan
+    8 = FiPC-NICS & Scan-NICS
    
     9 = Symmetry Properties of the Shielding Tensor (SPST)
 
