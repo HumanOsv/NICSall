@@ -68,10 +68,10 @@ After a successful run of the program, several output files named as: ValuesICSS
 	out.log			   : log file
 	ValuesICSS.backup          : Final c
 	./Resources
-	     |_ BOX.vmd            :  
-	     |_ FileName.cube      : 
-	     |_ FileName_Pos.vti   : The Induced Magnetic Field (VTI File Format, positive vectors)
-	     |_ Filename_Neg.vti   : The Induced Magnetic Field (VTI File Format, negative vectors)
+	     |_ BOX.vmd            : The size of the box (in Angstroms) length, width, and height. (vmd -e BOX.vmd) 
+	     |_ FileName.cube      : The cube file describes volumetric data as well as atom positions. 
+	     |_ FileName_Pos.vti   : The Induced Magnetic Field (VTI File Format, Positive Vectors)
+	     |_ Filename_Neg.vti   : The Induced Magnetic Field (VTI File Format, Negative Vectors)
 	     |_ FileName.vtk       : The Induced Magnetic Field (VTK File Format, Isolines) 
 	     |_ Filename_SCANS.txt : The NICS values computed at and above the ring center of molecules.
 	     |_ Filename_FiPC.txt  :
