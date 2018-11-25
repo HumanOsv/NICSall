@@ -1,6 +1,6 @@
 # NICSall
 
-We introduce a Nuclear independent chemical shielding (NICS) algorithm implemented in the new **NICSall** program.
+Aromaticity is indispensable for explaining a variety of chemical behaviors, including reactivity, structural features, relative energetic stabilities, and spectroscopic properties. We introduce a **NICSall** software  for evaluating aromatic properties via NICS methods. It is designed as a “Plug-In” utility for the computational chemistry package, Gaussian, ADF(work in progress) and Orca(work in progress). It offers automated building of input files, calculations, and analysis of output files for the following methods: The Induced Magnetic Field, Scan-NICS, FiPC-NICS and Symmetry Properties of the Shielding Tensor. 
 
 # Getting Started
 
