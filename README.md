@@ -46,7 +46,7 @@ The following necessary files should appear in the working directory:
     
     • NICSall.pl           : The executables files for NMR parameters
        ./src/
-          |_ GraphMaker.pl  : Build the ValuesICSS.backup files with all NMR parameters
+          |_ GraphMaker.pl  : Build the ValuesICSS.backup file with all NMR parameters
           |_ CubeToVTK.pl   : Change cube format to VTK formst 
           |_ ReadResults.pl : Read all the NMR parameters obtained by Gaussian software and extract them to be saved   
     
