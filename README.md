@@ -73,7 +73,7 @@ After a successful run of the program, several output files named as: ValuesICSS
 	ValuesICSS.backup          : File contains the main NMR parameters. If this file is present in the directory or Gaussian outputs, 
 	                             it is not necessary to send the quantum calculation again
 	./Resources
-	     |_ BOX.vmd            : The size of the box (in Angstroms) length, width, and height. (vmd -e BOX.vmd) 
+	     |_ BOX.vmd            : The size of the box (in Angstroms) length, width, and height.
 	     |_ FileName.cube      : The cube file describes volumetric data as well as atom positions. 
 	     |_ FileName_Pos.vti   : The Induced Magnetic Field (VTI File Format, Positive Vectors)
 	     |_ Filename_Neg.vti   : The Induced Magnetic Field (VTI File Format, Negative Vectors)
