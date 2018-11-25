@@ -80,7 +80,7 @@ sub OtherTensors {
 	my %magicalLines = ReadDatGetInfo(1,2,0, 0,$datFile);
 	my $total        = keys %magicalLines;
 	open (SPST, ">$outputName.txt");
-	print SPST "Type\taxis(z)\tXX\tYY\tZZ\tsigam(av)\tdelta\tnu\n\n";
+	print SPST "Type\taxis(z)\tXX\tYY\tZZ\tsigma(av)\tdelta\tnu\n\n";
 	foreach my $id (0..$total-1){
 		# Diagonal Tensor Simetrico.
 		my $DIxx  = ${$magicalLines{$id}}[6];
