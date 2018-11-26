@@ -1,6 +1,6 @@
 # NICSall
 
-Aromaticity is indispensable for explaining a variety of chemical behaviors, including reactivity, structural features, relative energetic stabilities, and spectroscopic properties. We introduce a **NICSall** software  for evaluating aromatic properties via NICS methods. It is designed as a “Plug-In” utility for the computational chemistry package, Gaussian, ADF(work in progress) and Orca(work in progress). It offers automated building of input files, calculations, and analysis of output files for the following methods: The Induced Magnetic Field, Scan-NICS, FiPC-NICS and Symmetry Properties of the Shielding Tensor. 
+Aromaticity is an indispensable way for explaining a variety of chemical behaviors such as reactivity, structural features, relative energetic stabilities, and spectroscopic properties. We introduce **NICSall** a software for evaluating aromatic properties via NICS methods. It offers an automated building process of input files for differents softwares(Gaussian, ADF, Orca) and analysis(The Induced Magnetic Field, Scan-NICS, FiPC-NICS and Symmetry Properties of the Shielding Tensor) of their outputs files. 
 
 # Getting Started
 
@@ -8,7 +8,9 @@ Aromaticity is indispensable for explaining a variety of chemical behaviors, inc
 
 NICSall is written in Perl. The program has only been tested on Linux, so it can’t be guaranteed to run on other operating systems.
 
-This topic lists library and software that must be installed prior to installing NICSall.
+Library and software that must be installed prior to installing NICSall.
+
+-Install Perl environment.
 
 -Install CPAN modules (http://www.cpan.org/modules/INSTALL.html or https://egoleo.wordpress.com/2008/05/19/how-to-install-perl-modules-through-cpan-on-ubuntu-hardy-server/)
 
@@ -28,7 +30,7 @@ This topic lists library and software that must be installed prior to installing
   
   
 
-**2)	Running NICSall**
+**2)	Install & Running NICSall**
 
 The NICSall program works through the command line interface using very simple instructions. NICSall program interfaces with a computational program in the background, thus the program to be used has to be available. The program allows NMR parameters using standard electronic structure theory methods to be performed using a wide variety of external quantum chemistry programs including Gaussian, ADF (work in progress) and Orca (work in progress).
 
@@ -67,7 +69,7 @@ or:
 
     user$ setsid perl NICSall.pl Config.in > out.log
 
-After a successful run of the program, several output files named as: ValuesICSS.backup and will be generated in Resources directory with the following files: BOX.vmd, FileName.cube, FileName(Pos|Neg).vti, FileName.vtk, Filename_SCANS.txt, Filename_FiPC.txt and Filename_SPST.txt.
+After a successful run the program will make several output files named as: ValuesICSS.backup,BOX.vmd, FileName.cube, FileName(Pos|Neg).vti, FileName.vtk, Filename_SCANS.txt, Filename_FiPC.txt and Filename_SPST.txt.
 
 	out.log			   : Output file from NICSall software
 	ValuesICSS.backup          : File contains the main NMR parameters. If this file is present in the directory or Gaussian outputs, 
