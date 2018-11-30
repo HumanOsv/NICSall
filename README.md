@@ -1,6 +1,6 @@
 # NICSall
 
-Aromaticity is an indispensable way for explaining a variety of chemical behaviors such as reactivity, structural features, relative energetic stabilities, and spectroscopic properties. We introduce **NICSall** a software for evaluating aromatic properties via NICS methods. It offers an automated building process of input files for differents softwares (Gaussian, ADF, Orca) and analysis(The Induced Magnetic Field, Scan-NICS, FiPC-NICS and Symmetry Properties of the Shielding Tensor) of their outputs files. 
+Aromaticity is an indispensable way for explaining a variety of chemical behaviors such as reactivity, structural features, relative energetic stabilities, and spectroscopic properties. We introduce **NICSall** a software for evaluating aromatic properties via NICS methods. It offers an automated building process of input files for differents softwares (Gaussian, ADF, Orca) and analysis (The Induced Magnetic Field, Scan-NICS, FiPC-NICS and Symmetry Properties of the Shielding Tensor) of their outputs files. 
 
 # Getting Started
 
