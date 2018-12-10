@@ -46,7 +46,7 @@ my $nprocess          = 100;
 #
 my $NumPtsTotal       = 0;
 #
-my $Numb_total_sup_atom;
+my $Numb_total_sup_atom = -1;
 #
 my $cylinderCase      = -1;
 my $cylinderAreaThick = 0.5;  # half thick, real thickness is value * 2
@@ -938,6 +938,13 @@ foreach my $a_1 (@data){
 			$arrays_errors[10] = "orbitals";
 		}
 		#
+		if ( ($a_1=~/maxghost/gi ) ){
+			my @tmp = ();
+			@tmp    = split (/\s+/,$a_1);
+			$Numb_total_sup_atom = $tmp[2];
+			#
+		}
+		#
 #		if( ($a_1=~/cylinder_radii/gi) ){
 #			my @tmp 			 = ();
 #			if (!defined($tmp[2])) {
@@ -962,12 +969,14 @@ if ( $option > 1 ) {
 	print "ERROR Choose option \n\n";
 	exit (1);
 }
-if ( $option == 0 ) {
-	$Numb_total_sup_atom = 7000;
-	print "MESSAGE Choose Magnetic Shielding \n";
-} else {
-	$Numb_total_sup_atom = 250;
-	print "MESSAGE Choose Sigma-pi Separation\n";
+if($Numb_total_sup_atom == -1){
+	if ( $option == 0 ) {
+		$Numb_total_sup_atom = 7000;
+		print "MESSAGE Choose Magnetic Shielding \n";
+	} else {
+		$Numb_total_sup_atom = 250;
+		print "MESSAGE Choose Sigma-pi Separation\n";
+	}
 }
 #
 #
