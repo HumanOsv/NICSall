@@ -12,6 +12,7 @@ use warnings; no warnings 'uninitialized';
 use Benchmark;
 use List::Util qw( min max );
 use Math::Trig;
+use POSIX;
 use Cwd qw(abs_path);
 use File::Basename;
 #
@@ -350,10 +351,17 @@ sub grid_information_generator{
 	my $total_number_of_cell_x = ( $length_side_box_x / $cell_size_w );
 	my $total_number_of_cell_y = ( $length_side_box_y / $cell_size_w );
 	my $total_number_of_cell_z = ( $length_side_box_z / $cell_size_w );
+
+	$total_number_of_cell_x=~ s/\.\d+$//;
+	$total_number_of_cell_y=~ s/\.\d+$//;
+	$total_number_of_cell_z=~ s/\.\d+$//;
 	#
-	my $neg_points_x = int ($total_number_of_cell_x / -2);
-	my $neg_points_y = int ($total_number_of_cell_y / -2);
-	my $neg_points_z = int ($total_number_of_cell_z / -2);
+	my $neg_points_x = $total_number_of_cell_x / -2;
+	$neg_points_x=~ s/\.\d+$//;
+	my $neg_points_y = $total_number_of_cell_y / -2;
+	$neg_points_y=~ s/\.\d+$//;
+	my $neg_points_z = $total_number_of_cell_z / -2;
+	$neg_points_z=~ s/\.\d+$//;
 	#
 	if($length_side_box_x == 0){
 		$neg_points_x           = 0;
@@ -371,9 +379,9 @@ sub grid_information_generator{
 	             ($neg_points_y*$cell_size_w),
 				 ($neg_points_z*$cell_size_w),
 				 $cell_size_w,
-				 int($total_number_of_cell_x + 1),
-				 int($total_number_of_cell_y + 1),
-				 int($total_number_of_cell_z + 1));
+				 ($total_number_of_cell_x + 1),
+				 ($total_number_of_cell_y + 1),
+				 ($total_number_of_cell_z + 1));
 }
 ###################################
 # Construct Discrete Search Space Cube
@@ -390,6 +398,9 @@ sub Construct_Discrete_Search_Space_Cube {
 	my $total_number_of_cell_y = ( $max_coord_y / $cell_size_w );
 	my $total_number_of_cell_z = ( $max_coord_z / $cell_size_w );
 	#
+	$total_number_of_cell_x=~ s/\.\d+$//;
+	$total_number_of_cell_y=~ s/\.\d+$//;
+	$total_number_of_cell_z=~ s/\.\d+$//;
 	#my @discretized_search_space = ();
 	#
 	my $pm = Parallel::ForkManager->new($nprocess);
@@ -408,15 +419,21 @@ sub Construct_Discrete_Search_Space_Cube {
 	my $div_points_x = ($total_number_of_cell_x / 2);
 	my $div_points_y = ($total_number_of_cell_y / 2);
 	my $div_points_z = ($total_number_of_cell_z / 2);
-	#
-	my $neg_points_x = int ($div_points_x * -1);
-	my $pos_points_x = int ($div_points_x);
-	
-	my $neg_points_y = int ($div_points_y * -1);
-	my $pos_points_y = int ($div_points_y);
 
-	my $neg_points_z = int ($div_points_z * -1);
-	my $pos_points_z = int ($div_points_z);	
+	$div_points_x=~ s/\.\d+$//;
+	$div_points_y=~ s/\.\d+$//;
+	$div_points_z=~ s/\.\d+$//;
+
+	#
+	my $neg_points_x = $div_points_x * -1;
+	my $pos_points_x = $div_points_x;
+	
+	my $neg_points_y = $div_points_y * -1;
+	my $pos_points_y = $div_points_y;
+
+	my $neg_points_z = $div_points_z * -1;
+	my $pos_points_z = $div_points_z;
+
 	if($length_side_box_x==0){
 		$neg_points_x=$pos_points_x=0;
 		$total_number_of_cell_x=1;	
@@ -434,18 +451,17 @@ sub Construct_Discrete_Search_Space_Cube {
 					($neg_points_y*$cell_size_w),
 					($neg_points_z*$cell_size_w),
 					$cell_size_w,
-					int($total_number_of_cell_x +1),
-					int($total_number_of_cell_y +1),
-					int($total_number_of_cell_z +1));
+					($total_number_of_cell_x +1),
+					($total_number_of_cell_y +1),
+					($total_number_of_cell_z +1));
 	#
-	#print @systemdata;
-	for (my $x=$neg_points_x; $x <= $pos_points_x; $x++) {
+	for (my $x=$neg_points_x; $x <= ($pos_points_x+0.001); $x++) {
 		$pm->start and next;
 		# All children process havee their own random.
 		srand();
 		my $string_coords;		
-		for (my $y=$neg_points_y; $y <= $pos_points_y; $y++) { 
-			for (my $z=$neg_points_z; $z <= $pos_points_z; $z++) { 
+		for (my $y=$neg_points_y; $y <= ($pos_points_y + 0.001); $y++) { 
+			for (my $z=$neg_points_z; $z <= ($pos_points_z + 0.0001); $z++) { 
 			#for (my $z= 0; $z < $pos_points_z; $z++) { 	
 				my $coord_x = ( ( $x * $cell_size_w ) + $cell_center );
 				my $coord_y = ( ( $y * $cell_size_w ) + $cell_center );
@@ -1136,6 +1152,8 @@ if ( -e "ValuesICSS.backup") {
 	my $com_log_boolean = 0;
 	my @coms_out = glob "$filebase*.out";
 	my @coms_log = glob "$filebase*.log";
+			grid_information_generator($Box_x,$Box_y,$Box_z,$quality);
+
 	if( scalar (@coms_out) > 0 ) {
 		print "MESSAGE Data written all .out in ValuesICSS.backup\n";
 		$com_log_boolean = 1;
