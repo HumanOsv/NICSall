@@ -379,9 +379,9 @@ sub grid_information_generator{
 	             ($neg_points_y*$cell_size_w),
 				 ($neg_points_z*$cell_size_w),
 				 $cell_size_w,
-				 ($total_number_of_cell_x + 1),
-				 ($total_number_of_cell_y + 1),
-				 ($total_number_of_cell_z + 1));
+				 ($neg_points_x*-2 + 1),
+				 ($neg_points_y*-2 + 1),
+				 ($neg_points_z*-2 + 1));
 }
 ###################################
 # Construct Discrete Search Space Cube
