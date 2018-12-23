@@ -305,7 +305,7 @@ sub CreateCubeFile {
 						print VTINEG "\t\t$vx\t$vy\t$vz\n";
 					}
 				}else{
-					print CUBE "0.000000\t";
+					print CUBE "  0.00000e+00\t";
 				}
 				if($written%6 == 0){
 					print CUBE "\n";
