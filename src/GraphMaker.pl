@@ -140,8 +140,8 @@ sub CalculatePropiertiesAndWrite {
 			my $newZZ = ${$magicalLines{$id}}[8]*(-1);
 			my $inplane;
 			my $outplane;
-			$inplane  = ($newZZ+$newYY)/3;
-			$outplane = $newXX/3;
+			$inplane  = ($newXX+$newYY)/3;
+			$outplane = $newZZ/3;
 			print  FIPC "${$magicalLines{$id}}[0]\t";
 			printf FIPC ("%.3f\t",${$magicalLines{$id}}[$outputShow]);
 			if( $type == 1 ){
