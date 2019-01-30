@@ -5,6 +5,7 @@ use warnings; no warnings 'uninitialized';
 use File::Basename;
 use Tie::File;
 
+use Data::Dump qw(dump ddx);
 #############################################################################
 # Subroutines for Reads Results                                             #
 #############################################################################
@@ -21,6 +22,7 @@ my $flagStart            = 0;
 # Sigma Pi
 my @orbitals;
 my $FirstOrbitalPosition;
+my @OrbUbicationList;
 # 0 means NBO was not done
 my $NBOGood = 0;
 # Core + Valence
@@ -70,8 +72,9 @@ sub SetSpecialLinePosition {
 # Subroutine that sets NBO data information.
 sub NBOAnalysisData{
 	my ($file)     = @_;
+	print "archivo es: $file \n";
 	my $lineNumber = 0;
-	open(GAUSSIAN , "$file");
+	open(GAUSSIAN , $file);
 	my $ValencePosition=0;
 	my $numAllOrbitals;
 	my $CorePosition;
@@ -87,7 +90,8 @@ sub NBOAnalysisData{
 		} elsif( $line=~/Canonical/ && $line=~/MO/ && $line=~/contributions/ ){
 			#push @OrbitalsPositionList, $lineNumber;
 			$FirstOrbitalPosition=$lineNumber+3;
-			last;
+			push @OrbUbicationList, $FirstOrbitalPosition;
+			#last;
 		}
 		$lineNumber++;
 	}
@@ -103,14 +107,159 @@ sub NBOAnalysisData{
 	untie @data;
 
 }
+sub SaveSPDataToFile {
+	my ($file) = @_;
+	my $ActualOrbitalLine=$FirstOrbitalPosition;
+
+	open(COM, $file);
+	my @data   = <COM>;
+	close(COM);
+
+	open(SAVE,">>SP.all");
+
+	my %coordsComs;
+	if($flagStart ==0){
+		print SAVE "$TotalLewisOrbital\n";
+		for (my $i = $atomStarts ; $i < $atomEND ; $i++) {
+			my @coords    = split(" ",$data[$i]);
+			if($coords[1]!=0 && $flagStart==0){ 
+				$totalAtoms++;		
+			} # es un atomo
+			$coordsComs{$i-$atomStarts} = [@coords];
+
+		}
+		my $llaves =  keys %coordsComs;
+		for (my $i = 0; $i < $llaves; $i++) {
+			print SAVE "COORDINATES\n";
+			print SAVE ${$coordsComs{$i}}[1],"\t";
+			print SAVE ${$coordsComs{$i}}[3],"\t";
+			print SAVE ${$coordsComs{$i}}[4],"\t";
+			print SAVE ${$coordsComs{$i}}[5],"\n";
+
+			foreach my $number (-4 .. $TotalLewisOrbital+2){
+				print SAVE $data[$OrbUbicationList[$i*2] + $number];
+			}
+			print SAVE "\n";
+		}
+	}else{
+		for (my $i = $atomStarts + $totalAtoms; $i < $atomEND ; $i++) {
+			my @coords    = split(" ",$data[$i]);
+			$coordsComs{$i-$atomStarts} = [@coords];
+		}
+		my $llaves = keys %coordsComs;
+		for (my $i = $totalAtoms; $i < $llaves + $totalAtoms; $i++) {
+			print SAVE "COORDINATES\n";
+			print SAVE ${$coordsComs{$i}}[1],"\t";
+			print SAVE ${$coordsComs{$i}}[3],"\t";
+			print SAVE ${$coordsComs{$i}}[4],"\t";
+			print SAVE ${$coordsComs{$i}}[5],"\n";
+
+			foreach my $number (-4 .. $TotalLewisOrbital+2){
+				print SAVE $data[$OrbUbicationList[$i*2] + $number];
+			}
+			print SAVE "\n";
+		}
+	}
+	$flagStart = 1;
+	print SAVE "FINIT\n";
+
+
+}
+sub ReadSPsSetInfo {
+	open(COM, "SP.all");
+	my @data   = <COM>;
+	close(COM);
+
+	$TotalLewisOrbital = $data[0];
+	open(NEWMESH, ">$outputName\_PI.backup");	
+	open(NEWMESH2, ">$outputName\_SIGMA.backup");
+	
+	#  ( ($a_1=~/type_graph/gi ) ){
+	for (my $i = 1; $i < $#data; $i++) {
+		if($data[$i]=~/COORDINATES/){  #coordenadas
+			my @tmp = split(" ",$data[$i+1]);
+			if($tmp[0] != 0){
+				print NEWMESH "Bq\t";
+				print NEWMESH2 "Bq\t";
+			}else{
+				print NEWMESH "$tmp[0]\t";
+				print NEWMESH2 "$tmp[0]\t";
+			}
+			print NEWMESH "$tmp[1]\t$tmp[2]\t$tmp[3]\t";
+			print NEWMESH2 "$tmp[1]\t$tmp[2]\t$tmp[3]\t";
+			#TERMINAMOS ESCRIBIR COORDENADAS
+			my $orbitalStarts = $i + 6;
+
+			my $newXXPi = 0;
+			my $newYYPi = 0;
+			my $newZZPi = 0;
+			my $newXZPi = 0;
+			my $newYZPi = 0;
+			my $newIsoPi = 0;
+
+			my $newXXSig = 0;
+			my $newYYSig = 0;
+			my $newZZSig = 0;
+			my $newXZSig = 0;
+			my $newYZSig = 0;
+			my $newIsoSig = 0;
+
+			foreach my $number (@orbitals){
+				if($number < 0){			#Sigma
+					my $Snumber = $number*(-1);
+					if($Snumber <= $TotalLewisOrbital){
+						my @tmp = split(' ',$data[$orbitalStarts + $Snumber]);
+						$newXXSig = $newXXSig + $tmp[1];
+						$newYYSig = $newYYSig + $tmp[5];
+						$newZZSig = $newZZSig + $tmp[9];
+						$newXZSig = $newXZSig + $tmp[3];
+						$newYZSig = $newYZSig + $tmp[6];
+
+					}
+				}else{
+					if($number <= $TotalLewisOrbital){
+						my @tmp=split(' ',$data[$orbitalStarts + $number]);
+						$newXXPi = $newXXPi + $tmp[1];
+						$newYYPi = $newYYPi + $tmp[5];
+						$newZZPi = $newZZPi + $tmp[9];
+						$newXZPi = $newXZPi + $tmp[3];
+						$newYZPi = $newYZPi + $tmp[6];
+					}
+				}
+			}
+			$newIsoPi = ($newXXPi + $newYYPi + $newZZPi)/3.0;
+			$newIsoSig = ($newXXSig + $newYYSig + $newZZSig)/3.0;
+
+			printf NEWMESH "%.6f\t",$newIsoPi;	# Isotropic   chemical shift
+			printf NEWMESH "---\t",;	# Anisotropic chemical shift
+			printf NEWMESH "%.6f\t",$newXXPi;	# Components XX
+			printf NEWMESH "%.6f\t",$newYYPi;	# Components YY
+			printf NEWMESH "%.6f\t",$newZZPi;	# Components ZZ
+			printf NEWMESH "%.6f\t",$newXZPi;	# Components XZ
+			printf NEWMESH "%.6f\n",$newYZPi;	# Components YZ
+
+			printf NEWMESH2 "%.6f\t",$newIsoSig;	# Isotropic   chemical shift
+			printf NEWMESH2 "---\t",;	# Anisotropic chemical shift
+			printf NEWMESH2 "%.6f\t",$newXXSig;	# Components XX
+			printf NEWMESH2 "%.6f\t",$newYYSig;	# Components YY
+			printf NEWMESH2 "%.6f\t",$newZZSig;	# Components ZZ
+			printf NEWMESH2 "%.6f\t",$newXZSig;	# Components XZ
+			printf NEWMESH2 "%.6f\n",$newYZSig;	# Components YZ
+		}
+	}
+	close(NEWMESH2);
+	close(NEWMESH);
+	undef @data;
+}
 ###################################
 # Subroutine for read output file ValuesICSS
 sub ReadOutsSetInfo {
-	my ($file, $SP) = @_;
+	my ($file) = @_;
 	print "\t$file\n";
 	open(COM, $file);
 	my @data   = <COM>;
 	close(COM);
+
 	my %coordsComs;
 	# Count atoms and points
 	for (my $i = $atomStarts ; $i < $atomEND ; $i++) {
@@ -135,92 +284,29 @@ sub ReadOutsSetInfo {
 	####
 	# Variable is used for PI information as well default information (SIGMAPI option chosen)
 	my %tensor;
-	my %tensorSig;
 	# Get tensor information No Sigma Pi
-	if($SP==0){
-		for (my $i = $tensorStarts ; $i < $tensorStarts+($totalData*9) ; $i+=9) {
-			chomp($data[$i]);
-			my $Iso = (split(" ",$data[$i]))[4];
-			my $Ani = (split(" ",$data[$i]))[7];
-			my $XX  = (split(" ",$data[$i+1]))[1];
-			my $YY  = (split(" ",$data[$i+2]))[3];
-			my $XZ  = (split(" ",$data[$i+3]))[1];
-			my $YZ  = (split(" ",$data[$i+3]))[3];
-			my $ZZ  = (split(" ",$data[$i+3]))[5];
-			# Orden de aparicion
-			$tensor{$aux} = [($Iso,$Ani,$XX,$YY,$ZZ,$XZ,$YZ)];
-			$aux++;
-		}
-	}elsif($NBOGood==1){
-		#Sigma Pi get data
-		# the "BigJump" is a variable number of lines wich separates MO information in file
-		my $bigJump= ($TotalLewisOrbital*(($TotalLewisAndNL-$TotalLewisOrbital+1)+$TotalLewisAndNL))/2;
-		# First orbital position
-		my $ActualOrbitalLine=$FirstOrbitalPosition;
-		my $next;
-		for (my $i = 0; $i <$totalData; $i++) {
-			my $newXXPi = 0;
-			my $newYYPi = 0;
-			my $newZZPi = 0;
-			my $newXZPi = 0;
-			my $newYZPi = 0;
-			my $newIsoPi = 0;
-
-			my $newXXSig = 0;
-			my $newYYSig = 0;
-			my $newZZSig = 0;
-			my $newXZSig = 0;
-			my $newYZSig = 0;
-			my $newIsoSig = 0;
-
-			foreach my $number (@orbitals){
-				if($number < 0){			#Sigma
-					my $Snumber = $number*(-1);
-					if($Snumber <= $TotalLewisOrbital){
-						my @tmp = split(' ',$data[$ActualOrbitalLine + $Snumber]);
-						$newXXSig = $newXXSig + $tmp[1];
-						$newYYSig = $newYYSig + $tmp[5];
-						$newZZSig = $newZZSig + $tmp[9];
-						$newXZSig = $newXZSig + $tmp[3];
-						$newYZSig = $newYZSig + $tmp[6];
-
-					}
-				}else{
-					if($number <= $TotalLewisOrbital){
-						my @tmp=split(' ',$data[$ActualOrbitalLine + $number]);
-						$newXXPi = $newXXPi + $tmp[1];
-						$newYYPi = $newYYPi + $tmp[5];
-						$newZZPi = $newZZPi + $tmp[9];
-						$newXZPi = $newXZPi + $tmp[3];
-						$newYZPi = $newYZPi + $tmp[6];
-					}
-				}
-			}
-			$newIsoPi = ($newXXPi + $newYYPi + $newZZPi)/3.0;
-			$newIsoSig = ($newXXSig + $newYYSig + $newZZSig)/3.0;
-			#print "XX PI $newXXPi / $Pi\n";
-			$tensorSig{$i} = [($newIsoSig ,0 , $newXXSig, $newYYSig, $newZZSig, $newXZSig, $newYZSig)];		#hash with Sigma info
-			$tensor{$i} = [($newIsoPi, 0, $newXXPi, $newYYPi, $newZZPi, $newXZPi, $newYZPi)];		# hash with Pi info
-			my $firstLine = $ActualOrbitalLine;
-			$next = $firstLine+($TotalLewisOrbital*2)+($bigJump*2)+$AmountofTrashLines;
-			$ActualOrbitalLine = $next;
-		}
+	for (my $i = $tensorStarts ; $i < $tensorStarts+($totalData*9) ; $i+=9) {
+		chomp($data[$i]);
+		my $Iso = (split(" ",$data[$i]))[4];
+		my $Ani = (split(" ",$data[$i]))[7];
+		my $XX  = (split(" ",$data[$i+1]))[1];
+		my $YY  = (split(" ",$data[$i+2]))[3];
+		my $XZ  = (split(" ",$data[$i+3]))[1];
+		my $YZ  = (split(" ",$data[$i+3]))[3];
+		my $ZZ  = (split(" ",$data[$i+3]))[5];
+		# Orden de aparicion
+		$tensor{$aux} = [($Iso,$Ani,$XX,$YY,$ZZ,$XZ,$YZ)];
+		$aux++;
 	}
 	#dump %tensor;
 	undef @data;
-	if($SP==0){
-		open(NEWMESH, ">>$outputName.backup");	
-	}else{
-		open(NEWMESH, ">>$outputName\_PI.backup");	
-		open(NEWMESH2, ">>$outputName\_SIGMA.backup");
-	}
+
+	open(NEWMESH, ">>$outputName.backup");	
 	for (my $i = $start; $i < $totalData; $i++) {
 		if(${$coordsComs{$i}}[1] == 0){
 			print NEWMESH "Bq\t";
-			if($SP==1){	print NEWMESH2 "Bq\t"};
 		}else{
 			print NEWMESH "${$coordsComs{$i}}[1]\t";
-			if($SP==1){	print NEWMESH2 "${$coordsComs{$i}}[1]\t";};
 		}
 		printf NEWMESH "%.6f\t",${$coordsComs{$i}}[3];	# X coord
 		printf NEWMESH "%.6f\t",${$coordsComs{$i}}[4];	# Y coord
@@ -232,25 +318,10 @@ sub ReadOutsSetInfo {
 		printf NEWMESH "%.6f\t",${$tensor{$i}}[4];		# Components ZZ
 		printf NEWMESH "%.6f\t",${$tensor{$i}}[5];		# Components XZ
 		printf NEWMESH "%.6f\n",${$tensor{$i}}[6];		# Components YZ
-		if($SP==1){
-			printf NEWMESH2 "%.6f\t",${$coordsComs{$i}}[3];	# X coord
-			printf NEWMESH2 "%.6f\t",${$coordsComs{$i}}[4];	# Y coord
-			printf NEWMESH2 "%.6f\t",${$coordsComs{$i}}[5];	# Z coord
-			printf NEWMESH2 "%.6f\t",${$tensorSig{$i}}[0];	# Isotropic   chemical shift
-			printf NEWMESH2 "%.6f\t",${$tensorSig{$i}}[1];	# Anisotropic chemical shift
-			printf NEWMESH2 "%.6f\t",${$tensorSig{$i}}[2];	# Components XX
-			printf NEWMESH2 "%.6f\t",${$tensorSig{$i}}[3];	# Components YY
-			printf NEWMESH2 "%.6f\t",${$tensorSig{$i}}[4];	# Components ZZ
-			printf NEWMESH2 "%.6f\t",${$tensorSig{$i}}[5];	# Components XZ
-			printf NEWMESH2 "%.6f\n",${$tensorSig{$i}}[6];	# Components YZ
-		}
 	}
 	close(NEWMESH);
-	if($SP == 1){
-		close(NEWMESH2);
-	}
+
 	undef %tensor;
-	undef %tensorSig;
 	undef %coordsComs;
 }
 ###################################
@@ -262,18 +333,12 @@ sub ReadMeshCOMS {
 	if( $#coms == -1 ) {
 		@coms = glob "$comName*.log";
 	}
-	my $last  = pop @coms;
-	my $first = shift @coms;
+	#my $first = shift @coms;
+	#my $last  = pop @coms;
 	
-	###########
-	if($SP==1){				#SigmaPi chosen
+
+	if($SP==1){	#se procede a leer la info
 		@orbitals=@{$orbitalsP};
-		NBOAnalysisData($first);
-		if($NBOGood == 0){
-			#NBO wasn't calculated;
-			print "NBO wasn't correclty calculated, please delete all .out/.log files and try again\n";
-			exit(2);
-		}
 		foreach my $num (@orbitals){		# Sum of Pi and Sigma Data
 			if($num>0){
 				$Pi++;
@@ -281,26 +346,33 @@ sub ReadMeshCOMS {
 				$Sigma++;
 			}
 		}
+		dump @orbitals;
+		if(-e 'SP.all'){
+			print "Data written in SP.all\t Reading...\n";
+			ReadSPsSetInfo();
+		}else{
+			foreach my $com (@coms) {
+				# print "escribiendo $com\n";
+				NBOAnalysisData($com);
+				SetSpecialLinePosition($com);
+				#ReadOutsSetInfo($com, $SP);
+				SaveSPDataToFile($com);		
+				if($NBOGood == 0){
+					#NBO wasn't calculated;
+					print "NBO wasn't correclty calculated, please delete all .out/.log files and try again\n";
+					exit(2);
+				}
+			}
+		}
+		ReadSPsSetInfo();
+	}else{
+		foreach my $com (@coms) {
+			# print "escribiendo $com\n";
+			$atomEND = -1;
+			SetSpecialLinePosition($com);
+			ReadOutsSetInfo($com);		
+		}
 	}
-	###########
-	# get data information position from 1st .com output
-	SetSpecialLinePosition($first);
-	# get data.
-	print "MESSAGE Reading ... \n";
-	ReadOutsSetInfo($first, $SP);
-	#all .com output data
-	foreach my $com (@coms) {
-		# print "escribiendo $com\n";
-		NBOAnalysisData($com);
-		SetSpecialLinePosition($com);
-		ReadOutsSetInfo($com, $SP);		
-	#	last;
-	}
-	$atomEND = -1;
-	# last output could have a different number of lines, so data position is recalculated
-	SetSpecialLinePosition($last);
-	if($SP==1){NBOAnalysisData($last);}	
-	ReadOutsSetInfo($last, $SP);
 }
 ###################################
 # Subroutine for Sigma-Pi orbitals
@@ -318,6 +390,7 @@ sub VerifySigmaPi{
 			@orbitals=split(",",$tmp);
 		}
 	}
+	close(CONFIG);
 	return ($SP,\@orbitals);
 }
 
