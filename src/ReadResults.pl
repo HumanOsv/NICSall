@@ -346,7 +346,6 @@ sub ReadMeshCOMS {
 				$Sigma++;
 			}
 		}
-		dump @orbitals;
 		if(-e 'SP.all'){
 			print "Data written in SP.all\t Reading...\n";
 			ReadSPsSetInfo();
