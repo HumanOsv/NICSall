@@ -49,9 +49,11 @@ sub SetSpecialLinePosition {
 	my ($file)     = @_;
 	my $lineNumber = 0;
 	#
-	tie my @data, 'Tie::File', $file, memory=>4_000_000_000;
+	#tie my @data, 'Tie::File', $file, memory=>4_000_000_000;
+	open(GAUSSIAN, $file);
 	# Set line numbers
-	foreach my $line (@data){
+	$atomEND = -1;
+	foreach my $line (<GAUSSIAN>){
 		if( $line=~/Center/ && $line=~/Coordinates/ && $line=~/Angstroms/ ){
 			$atomStarts = $lineNumber+3;
 		}
@@ -66,7 +68,7 @@ sub SetSpecialLinePosition {
 		}
 		$lineNumber++;
 	}
-	untie @data;
+	close(GAUSSIAN);
 }
 ###################################
 # Subroutine that sets NBO data information.
@@ -160,7 +162,9 @@ sub SaveSPDataToFile {
 			print SAVE "\n";
 		}
 	}
+	print "total atoms = $totalAtoms";
 	$flagStart = 1;
+	undef @OrbUbicationList;
 	print SAVE "FINIT\n";
 
 
@@ -177,7 +181,9 @@ sub ReadSPsSetInfo {
 	#  ( ($a_1=~/type_graph/gi ) ){
 	for (my $i = 1; $i < $#data; $i++) {
 		if($data[$i]=~/COORDINATES/){  #coordenadas
+			#print "Cordenadas: ";
 			my @tmp = split(" ",$data[$i+1]);
+			#dump @tmp;
 			if($tmp[0] != 0){
 				print NEWMESH "Bq\t";
 				print NEWMESH2 "Bq\t";
