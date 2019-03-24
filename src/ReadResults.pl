@@ -162,7 +162,6 @@ sub SaveSPDataToFile {
 			print SAVE "\n";
 		}
 	}
-	print "total atoms = $totalAtoms";
 	$flagStart = 1;
 	undef @OrbUbicationList;
 	print SAVE "FINIT\n";
@@ -184,7 +183,7 @@ sub ReadSPsSetInfo {
 			#print "Cordenadas: ";
 			my @tmp = split(" ",$data[$i+1]);
 			#dump @tmp;
-			if($tmp[0] != 0){
+			if($tmp[0] == 0){
 				print NEWMESH "Bq\t";
 				print NEWMESH2 "Bq\t";
 			}else{
