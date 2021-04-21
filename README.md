@@ -175,7 +175,7 @@ explained below.
 *NOTE: The Sigma and Pi orbitals correspond to Negative and Positive values.*
 
 
-*f)* Nuclear independent chemical shielding (NICS) functions.
+*f)* Nucleus-independent chemical shifts (NICS)
     
     type_graph = 1,2,5,8
 
