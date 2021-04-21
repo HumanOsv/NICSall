@@ -9,9 +9,9 @@ Aromaticity is a chemical concept that accounts for different molecular features
 
 **1)	Prerequisites**
 
-NICSall is written in Perl. The program has only been tested on Linux, so it can’t be guaranteed to run on other operating systems.
+NICSall is a Perl program. NICSall is optimized and tested for Linux, so it can’t be guaranteed to run on other operating systems.
 
-Library and software that must be installed prior to installing NICSall.
+Ensure to install the following Library and software before installing NICSall.
 
 -Install Perl environment.
 
