@@ -141,7 +141,7 @@ NICSall needs an input file, Config.in, that contains all the necessary paramete
 explained below.
 
 
-*a)* The XYZ file cartesian coordinates format is a chemical file format (https://openbabel.org/docs/dev/FileFormats/XYZ_cartesian_coordinates_format.html).
+*a)* The  XMol file cartesian coordinates format (https://openbabel.org/docs/dev/FileFormats/XYZ_cartesian_coordinates_format.html).
 
     coords = FileName.xyz
 
