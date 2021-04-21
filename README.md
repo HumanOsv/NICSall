@@ -35,9 +35,9 @@ Ensure to install the following Library and software before installing NICSall.
 
 **2)	Install & Running NICSall**
 
-The program allows NMR parameters using standard electronic structure theory methods to be performed using a wide variety of external quantum chemistry programs, including Gaussian, ADF (work in progress), and Orca (work in progress).
+The NICSall program works through the command-line interface using straightforward instructions. NICSall program read parameters from standard NMR shielding computations performed by various external quantum chemistry programs, including Gaussian, ADF (work in progress), and Orca (work in progress). Thus, the external program must be available. 
 
-To download the NICSall you need Git installed on your computer. If Git is installed use the following command to download the NICSall: 
+To download the NICSall, you need Git installed on your computer. If Git is installed, use the following command to download the NICSall:
 
     user$ git clone https://github.com/HumanOsv/NICSall.git
 
