@@ -1,14 +1,20 @@
 ## The XYZ file cartesian coordinates format is a chemical file format.
 
-coords = benzene.xyz
+coords = 10_R5.xyz
 
 ## Quality grid of NICS parameters.
 
-quality = 0.2
+quality = 0.1
+
+## Select where does NICSall will be run. 0 Local, 1 Cluster
+jobScheduler = 0
+
+## Number of parallel runs, works only with jobScheluder = 0. OPTIONAL
+parallel = 3
 
 ## The size of the box (in Angstroms) length, width, and height.
 
-box_size = 8.0, 8.0, 8.0
+box_size = 0, 0, 10
 
 ## Choose NMR chemical shieldings (0) or Sigma-Pi separation (1).
 
@@ -25,6 +31,9 @@ type_graph = 1,2,5,8
 ## Software gaussian (gaussian).
 
 software = gaussian
+## How to call Gaussian (COMMAND), works with jobScheluder=0. For Cluster calls NICSall will ALWAYS call a bash script "CallGaussian", with the following arguments:
+# $CallGaussian fileName file.com nproc queue
+G_Command = g16
 
 ## The number of processors and memory (GB).
 
@@ -36,7 +45,9 @@ charge_multi = 0,1
 
 ## keywords for gaussian
 
-header = B3lyp/6-31g*
+header = pbe1pbe/def2tzvp
+
+#maxghost = 10
 
 ## A model potential be substituted for the core electrons
 

@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl5.18.2
 
 #
 # Write code: 
@@ -30,7 +30,7 @@ use Parallel::ForkManager;
 # paralelo (Ej: Si mandas un calculo de 4 procesadores y tu 
 #               computador es de 16, por lo tanto son 4 colas 
 #                puesto que 4*4 = 16)
-my $numero_colas      = 4;
+my $numero_colas      = 1;
 my $gaussian_version  = "g09";
 # Local = 0 y queue = 1
 my $local_cluster     = 0;
@@ -39,7 +39,7 @@ my $local_cluster     = 0;
 # Check cluster send jobs
 #my $queue        = "all.q";
 #my $queue        = "Aztlan";
-my $exec_bin_g09      = "Gaussian09.d01";
+my $exec_bin_g09      = "CallGaussian";
 # 
 my $max_numb_conver   = 3;
 # Numero de procesos
@@ -184,6 +184,7 @@ sub submit_queue {
 		#
 		if ($option_lanz == 1) {
 			my $env_a = `$exec_bin_g09 $without_ext $without_ext.com $ncpus $queue`;
+		#	slurm_cluster($without_ext,"$without_ext.com",$ncpus,$queue)
 		}
 	}
 	#
@@ -540,6 +541,32 @@ sub Euclidean_distance {
 	return $dist;
 }
 ###################################
+sub slurm_cluster {
+	#
+	my ($nombre,$file,$proc,$queue)  = @_;
+	#
+	my $slrm = "$nombre.slrm";
+	open (SLURMFILE, ">$slrm");
+	#
+	print SLURMFILE "#!/bin/bash \n";
+	print SLURMFILE "#SBATCH --job-name=$nombre\n";
+	print SLURMFILE "#SBATCH --output=/dev/null\n";
+	print SLURMFILE "#SBATCH --partition=$queue\n";
+	print SLURMFILE "#SBATCH --nodes=1\n";
+	print SLURMFILE "#SBATCH -c $proc\n";
+	print SLURMFILE "\n";
+	print SLURMFILE "ml g16/B.01\n";
+	print SLURMFILE "\n";
+	print SLURMFILE "\n";
+	print SLURMFILE "srun g16 $file\n";
+	
+	close (SLURMFILE);
+	#
+	system ("sbatch $slrm");
+	sleep (1)
+	#system ("rm $slrm")
+}
+###################################
 # Reference file
 sub format_xyz {
 	my ($input_file) = @_;
@@ -732,8 +759,8 @@ if (not defined $file_name) {
 	exit(1);
 }
 if (not defined $queue) {
-	die "\n Especifique cola de calculo (all.q, Aztlan, Mictlan, campos) \n";
-	exit(1);
+	print "\n Queue not defined, NICSall will create inputs, but will not send them (Local not affected).\nNICSall can collect the information after the calculations are completed by the users\n";
+	#exit(1);
 }
 #
 # read and parse files
@@ -960,6 +987,53 @@ foreach my $a_1 (@data){
 			$Numb_total_sup_atom = $tmp[2];
 			#
 		}
+		#print("$a_1\n");
+		if ( ($a_1=~/jobScheduler/gi ) ){
+			my @tmp = ();
+			@tmp    = split (/\s+/,$a_1);
+			# Identify empty string
+			if (!defined($tmp[2])) {
+				# Datos MultiWFN
+				# Grid menor = 0.2
+				# Grid medio = 0.1
+				# Grid mayot = 0.07
+				$local_cluster = 0;
+			} else {
+				$local_cluster = $tmp[-1];
+			}
+			#
+			$arrays_errors[11] = "job-scheduler";			
+		}
+		if ( ($a_1=~/parallel/gi ) ){
+			my @tmp = ();
+			@tmp    = split (/\s+/,$a_1);
+			# Identify empty string
+			if (!defined($tmp[2])) {
+				# Datos MultiWFN
+				# Grid menor = 0.2
+				# Grid medio = 0.1
+				# Grid mayot = 0.07
+				$numero_colas = 1;
+			} else {
+				$numero_colas = $tmp[-1];
+			}
+			#
+		}
+		if ( ($a_1=~/G_Command/gi ) ){
+			my @tmp = ();
+			@tmp    = split (/\s+/,$a_1);
+			# Identify empty string
+			if (!defined($tmp[2])) {
+				# Datos MultiWFN
+				# Grid menor = 0.2
+				# Grid medio = 0.1
+				# Grid mayot = 0.07
+				$gaussian_version = "g09";
+			} else {
+				$gaussian_version = $tmp[-1];
+			}
+			#
+		}
 		#
 #		if( ($a_1=~/cylinder_radii/gi) ){
 #			my @tmp 			 = ();
@@ -1091,6 +1165,7 @@ if (!defined($arrays_errors[7]))  { $arrays_errors[7]  = "NO"; }
 if (!defined($arrays_errors[8]))  { $arrays_errors[8]  = "NO"; }
 if (!defined($arrays_errors[9]))  { $arrays_errors[9]  = "NO"; }
 if (!defined($arrays_errors[10])) { $arrays_errors[10] = "NO"; }
+if (!defined($arrays_errors[10])) { $arrays_errors[11] = "NO"; }
 my $bolean = errors_config (\@arrays_errors);
 if ( $bolean == 0) { exit; }
 #
@@ -1111,6 +1186,9 @@ foreach my $data_coords (@coords_file) {
 	push (@file_axis_y,$orig_xyz[1]);
 	push (@file_axis_z,$orig_xyz[2]);
 }
+#print("job-scheduler = $local_cluster\n");
+#print("parallel = $numero_colas\n");
+#print("G_Command = $gaussian_version\n");
 # # # # # # # # # 
 # Automatic box
 if ($option_box == 0) {
