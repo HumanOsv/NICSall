@@ -2,6 +2,9 @@
 
 Aromaticity is a chemical concept that accounts for different molecular features such as reactivity, structural shapes, relative energetic stability, and spectroscopic properties of the so-called "aromatic molecules". Here,  we introduce the NICSall software for evaluating aromaticity via NICS methods. It offers an automated building process of input files for different software (Gaussian, ADF, Orca) and analysis of their outputs files (the induced magnetic field, scan-NICS, FiPC-NICS, and symmetry properties of the shielding tensor).
 
+• Inostroza, D.; García, V.; Yañez, O.; Torres-Vega, J. J.; Vásquez-Espinal, A.; Pino-Rios, R.; Báez-Grez, R.; Tiznado, W. On the NICS Limitations to Predict Local and Global Current Pathways in Polycyclic Systems. New J. Chem. 2021. **DOI:10.1039/D1NJ01510A** https://doi.org/10.1039/D1NJ01510A.
+
+
 
 ![alt text](https://github.com/HumanOsv/Logos/blob/master/Diagrama.png?cropZoom=100,100)
 
